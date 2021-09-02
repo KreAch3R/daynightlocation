@@ -10,10 +10,10 @@ import os
 import datetime
 import geocoder
 import requests
-from gps import *
-from datetime import datetime, date
 from astral import LocationInfo
 from astral.sun import sun
+from datetime import datetime, date
+from gps import *
 from tzwhere import tzwhere
 
 inifile="/home/pi/.openauto/config/openauto_system.ini"
@@ -32,10 +32,8 @@ manual=False
 #long=
 if manual :
     print ("Setting coordinates manually")
-    print ("latitude", lat)
-    print ("longitude", long)
 else :
-    # METHOD 2: Get latitude and longitude from GPS
+    # METHOD 2 (Default): Get latitude and longitude from GPS
     # https://ozzmaker.com/using-python-with-a-gps-receiver-on-a-raspberry-pi/
     gpsd = gps(mode=WATCH_ENABLE|WATCH_NEWSTYLE)
     # 10 is a random repetition number that I've found produces valid results with a connected GPS
@@ -46,8 +44,6 @@ else :
             long = getattr(report,'lon',0.0)
 
             print ("Getting coordinates from the connected GPS device:")
-            print ("latitude=" + str(lat))
-            print ("longitude=" + str(long))
             break
     else :
         print ("GPS not found")
@@ -56,15 +52,15 @@ else :
         print ("Getting coordinates from geocoder (device's IP):")
         lat = iplocation.latlng[0]
         long = iplocation.latlng[1]
-        print ("latitude", lat)
-        print ("longitude", long)
+
+print ("latitude", str(lat))
+print ("longitude", str(long))
 
 # Empty line
 print ()
 
 #---------- Search for sunrise and sunset values using Astral module or sunrise-sunset.org API------------------
 
-# City names not necessary: https://stackoverflow.com/a/65433512/4008886
 # METHOD 1: Search for sunrise/sunset values using the Astral module
 # Change this to 'False' if you want to use sunrise-sunset.org
 astral=True
@@ -74,9 +70,10 @@ if astral :
     # Find timezone from lat/long
     # https://stackoverflow.com/a/39457871/4008886
     tzwhere = tzwhere.tzwhere()
-    local_tz = tzwhere.tzNameAt(lat, long) # Seville coordinates
+    local_tz = tzwhere.tzNameAt(lat, long)
     print ("Timezone:", local_tz)
 
+    # City names not necessary: https://stackoverflow.com/a/65433512/4008886
     location = LocationInfo(timezone=local_tz, latitude=lat, longitude=long)
     s = sun(location.observer, date=date.today(), tzinfo=location.timezone)
 
