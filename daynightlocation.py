@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # Author: Justin DuBois
 # Modified by: KreAch3R
-# Required libraries - astral, tzwhere -
-# If missing, execute 'pip3 install astral/tzwhere'
+# Required libraries - astral, geocoder, gps, tzwhere -
+# If missing, execute 'pip3 install astral/geocoder/gps/tzwhere'
 # Also required: sudo apt-get install libgeos-dev
 # REQUIRES internet for some functions: geocoder and sunrise-sunset.org API
 
