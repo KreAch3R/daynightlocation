@@ -1,0 +1,17 @@
+[Unit]
+Description=OAP DayNight Location service
+After=network-online.target
+
+[Service]
+Type=oneshot
+User=pi
+Group=pi
+#User=root
+Environment="DISPLAY=:0"
+Environment="XAUTHORITY=/home/pi/.Xauthority"
+ExecStart=/usr/bin/python3 /usr/local/bin/daynightlocation.py
+StandardOutput=file:/home/pi/Logs/daynightlocation.log
+StandardError=file:/home/pi/Logs/daynightlocation.error
+
+[Install]
+WantedBy=multi-user.target

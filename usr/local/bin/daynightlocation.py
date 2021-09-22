@@ -30,10 +30,12 @@ manual=False
 # UNCOMMENT and input manually
 #lat=
 #long=
+# Method: gps|ip
+method="ip"
 if manual :
     print ("Setting coordinates manually")
-else :
-    # METHOD 2 (Default): Get latitude and longitude from GPS
+elif method == "gps" :
+    # METHOD 2: Get latitude and longitude from GPS
     # https://ozzmaker.com/using-python-with-a-gps-receiver-on-a-raspberry-pi/
     gpsd = gps(mode=WATCH_ENABLE|WATCH_NEWSTYLE)
     # 10 is a random repetition number that I've found produces valid results with a connected GPS
@@ -45,13 +47,12 @@ else :
 
             print ("Getting coordinates from the connected GPS device:")
             break
-    else :
-        print ("GPS not found")
-        # METHOD 2: Get info from IP
-        iplocation = geocoder.ip('me')
-        print ("Getting coordinates from geocoder (device's IP):")
-        lat = iplocation.latlng[0]
-        long = iplocation.latlng[1]
+elif method="ip" :
+    # METHOD 3 (Default): Get info from IP
+    iplocation = geocoder.ip('me')
+    print ("Getting coordinates from geocoder (device's IP):")
+    lat = iplocation.latlng[0]
+    long = iplocation.latlng[1]
 
 print ("latitude", str(lat))
 print ("longitude", str(long))

@@ -1,0 +1,8 @@
+[Unit]
+Description=Start OAP DayNightLocation service 5 min after boot
+
+[Timer]
+OnBootSec=5min
+
+[Install]
+WantedBy=timers.target
