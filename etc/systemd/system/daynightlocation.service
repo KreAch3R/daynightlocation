@@ -9,6 +9,7 @@ Group=pi
 #User=root
 Environment="DISPLAY=:0"
 Environment="XAUTHORITY=/home/pi/.Xauthority"
+ExecStartPre=-!/bin/sh -c '/bin/rm -r /home/pi/Logs/daynightlocation.*'
 ExecStart=/usr/bin/python3 /usr/local/bin/daynightlocation.py
 StandardOutput=file:/home/pi/Logs/daynightlocation.log
 StandardError=file:/home/pi/Logs/daynightlocation.error
